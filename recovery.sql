@@ -1,4 +1,8 @@
 # Recovery calculation accompanied with outstanding
+# 1、要分为extraction_date,client和days_afer_gen三个层级计算；
+# 2、payment和clientjoin时要使用left join，才能保留没有回款的客户记录；
+# 3、outstanding在client层级上就不变了，recovery会监控30天内的回款，recovery和outstanding要分开在不同层级下计算；
+# 4、为了数据透视表对outstanding求和汇总时不重复加和，要将相应分类下除第一行外的outstanding设置为0。
 -----------------------------1 Provision-------------------------------------------------
 DROP TABLE pre_lit_daily_provision;
 CREATE TABLE pre_lit_daily_provision TABLESPACE playground_data_temp AS 
